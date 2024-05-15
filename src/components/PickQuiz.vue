@@ -16,7 +16,7 @@
       <li v-if="responseData.musicQuizId">
         <router-link
           :to="{
-            name: 'InitQuiz',
+            name: 'StartQuiz',
             params: { id: responseData.musicQuizId, genre: 'Music' },
           }"
           >Music Quiz</router-link

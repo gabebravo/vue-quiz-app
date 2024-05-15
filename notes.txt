@@ -6,7 +6,7 @@ You only need 3 routes ___________
   b. on click => it routes the user to the first question on the "/start" route
 
 2. Start page "/start/:quizId" :
-  a. on mount => makes request to get the quiz ids GET <api>/quiz/:id and gets
+  a. on mount => makes request GET <api>/quiz/:id and gets
      the first question (w/out the answer)
   b. view => the user sees the Question component in the view with the next button disabled
   c. on click => once the user makes a selection, it calls the POST <api>/quiz/:id
