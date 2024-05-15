@@ -29,9 +29,9 @@ export default {
       required: true,
     },
   },
-  mounted() {
-    console.log('QuizOptions', this.ids, this.genres, this.componentLink);
-  },
+  // mounted() {
+  //   console.log('QuizOptions', this.ids, this.genres, this.componentLink);
+  // },
 };
 </script>
 

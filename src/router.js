@@ -10,10 +10,10 @@ const routes = [
     component: PickQuiz,
   },
   {
-    path: '/start/:id', // Dynamic segment ":id"
+    path: '/start/:genre/:id', // Dynamic segments ":genre/:id"
     name: 'StartQuiz',
     component: StartQuiz,
-    props: true, // Pass route params as props to UserDetails component
+    props: true,
   },
 ];
 

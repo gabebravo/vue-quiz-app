@@ -12,8 +12,13 @@ class Quiz {
     return this.#quizzes.map((quiz) => quiz.genre);
   }
 
-  getQuizByIdDb(id) {
+  getQuizById(id) {
     return this.#quizzes.find((quiz) => quiz.id === id);
+  }
+
+  getQuestionByIndex(id, index) {
+    const quiz = this.getQuizById(id);
+    return quiz.questions[index];
   }
 }
 

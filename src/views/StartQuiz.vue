@@ -1,39 +1,39 @@
 <template>
   <div class="hello">
-    <h1>You've picked the {{ responseData.genre }} Quiz</h1>
-    <h3>Here is the question?</h3>
-    <ul>
-      <li>
-        <p>question: {{ responseData.question }}</p>
-        <!-- Accessing route parameter -->
-      </li>
-      <li>
-        <p>answers: {{ responseData.choices }}</p>
-        <button :disabled="!isEnabled">Next</button>
-        <!-- <button @click="enableButton">Control</button> -->
-        <!-- Accessing route parameter -->
-      </li>
-    </ul>
+    <h1>You've picked the {{ $route.params.genre }} Quiz</h1>
+    <h4>Here is your first question</h4>
+    <div v-if="responseData?.question">
+      <QuizQuestion
+        :question="responseData.question"
+        :choices="responseData.choices"
+        :selectionHandler="submitAnswer"
+      />
+    </div>
+
+    <div v-else>
+      <AppSpinner />
+    </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import AppSpinner from '../components/AppSpinner.vue';
+import QuizQuestion from '../components/QuizQuestion/QuizQuestion.vue';
 export default {
   name: 'StartQuiz',
-  props: {
-    quizName: String,
+  components: {
+    AppSpinner,
+    QuizQuestion,
   },
   data() {
     return {
       responseData: {},
-      isEnabled: false,
     };
   },
   methods: {
-    enableButton() {
-      this.isEnabled = true;
-      console.log('info', this.isEnabled);
+    submitAnswer(answer) {
+      console.log('answer', answer);
     },
     async startQuiz() {
       try {
@@ -55,17 +55,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
 button {
   color: #42b983;
   cursor: pointer;

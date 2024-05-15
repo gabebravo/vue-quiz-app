@@ -19,14 +19,10 @@ const pickQuiz = (req, res) => {
 const startQuiz = (req, res) => {
   const { id } = req.query;
   try {
-    const quiz = Quizzes.getQuizById(id);
-    const { question, choices } = quiz.questions[0];
-    const payload = {
-      question,
-      choices,
-      genre: quiz.genre,
-    };
-    res.status(200).json(payload);
+    const { question, choices } = Quizzes.getQuestionByIndex(id, 0);
+    setTimeout(() => {
+      res.status(200).json({ question, choices });
+    }, 500);
   } catch (err) {
     res.status(400).json(err.message);
   }

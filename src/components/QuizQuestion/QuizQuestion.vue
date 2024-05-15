@@ -1,0 +1,68 @@
+<template>
+  <div>
+    <QuestionLabel :question="question" />
+    <h4>Please choose one of the options below</h4>
+    <QuestionChoices :choices="choices" :selectionHandler="selectionHandler" />
+  </div>
+</template>
+
+<script>
+// import axios from 'axios';
+import QuestionLabel from './QuestionLabel.vue';
+import QuestionChoices from './QuestionChoices.vue';
+export default {
+  name: 'QuizQuestion',
+  components: {
+    QuestionLabel,
+    QuestionChoices,
+  },
+  props: {
+    question: String,
+    choices: {
+      type: Array,
+      required: true,
+    },
+    selectionHandler: {
+      type: Function,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      // responseData: {},
+      isEnabled: false,
+    };
+  },
+  methods: {
+    // enableButton() {
+    //   this.isEnabled = true;
+    //   console.log('info', this.isEnabled);
+    // },
+    // async startQuiz() {
+    //   try {
+    //     const quizId = this.$route.params.id;
+    //     const response = await axios.get(
+    //       `http://localhost:5001/quiz/start?id=${quizId}`
+    //     );
+    //     this.responseData = response.data;
+    //   } catch (error) {
+    //     console.error('Error fetching data:', error);
+    //   }
+    // },
+  },
+  // async mounted() {
+  //   this.startQuiz();
+  // },
+  // mounted() {
+  //   console.log('QuizQuestion', this.question, this.choices);
+  // },
+};
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+button {
+  color: #42b983;
+  cursor: pointer;
+}
+</style>
