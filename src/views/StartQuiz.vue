@@ -32,8 +32,16 @@ export default {
     };
   },
   methods: {
-    submitAnswer(answer) {
-      console.log('answer', answer);
+    async submitAnswer(answer) {
+      try {
+        const quizId = this.$route.params.id;
+        const response = await axios.get(
+          `http://localhost:5001/quiz/start?id=${quizId}`
+        );
+        this.responseData = response.data;
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
     },
     async startQuiz() {
       try {

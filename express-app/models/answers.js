@@ -1,16 +1,29 @@
-class Answers {
-  // Declare: every Color instance has a private field called #values.
-  #values;
-  constructor(r, g, b) {
-    this.#values = [r, g, b];
+import { allQuizzes, newQuiz } from './answers.js';
+import short from 'short-uuid';
+
+export class Answers {
+  #quizzes = allQuizzes;
+  #quiz = newQuiz;
+
+  constructor(genre, quizId, answer) {
+    this.#quiz = {
+      ...newQuiz,
+      uuid: short.generate(),
+      genre,
+      quizId,
+      answers: new Set(answer),
+    };
   }
-  getRed() {
-    return this.#values[0];
+
+  setNewAnswer(answer) {
+    this.#quiz.answers.add(answer);
   }
-  setRed(value) {
-    this.#values[0] = value;
+
+  getAnswersLength() {
+    return this.#quiz.answers.size;
+  }
+
+  getAnswers() {
+    return this.#quiz.answers.entries();
   }
 }
-
-const red = new Answers(255, 0, 0);
-console.log(red.getRed()); // 255

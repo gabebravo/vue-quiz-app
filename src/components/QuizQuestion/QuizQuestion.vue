@@ -29,33 +29,9 @@ export default {
   },
   data() {
     return {
-      // responseData: {},
       isEnabled: false,
     };
   },
-  methods: {
-    // enableButton() {
-    //   this.isEnabled = true;
-    //   console.log('info', this.isEnabled);
-    // },
-    // async startQuiz() {
-    //   try {
-    //     const quizId = this.$route.params.id;
-    //     const response = await axios.get(
-    //       `http://localhost:5001/quiz/start?id=${quizId}`
-    //     );
-    //     this.responseData = response.data;
-    //   } catch (error) {
-    //     console.error('Error fetching data:', error);
-    //   }
-    // },
-  },
-  // async mounted() {
-  //   this.startQuiz();
-  // },
-  // mounted() {
-  //   console.log('QuizQuestion', this.question, this.choices);
-  // },
 };
 </script>
 
