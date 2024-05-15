@@ -1,0 +1,30 @@
+
+You only need 3 routes ___________
+
+1. Home page "/" : 
+  a. on mount => makes request to get the quiz ids GET <api>/quiz
+  b. on click => it routes the user to the first question on the "/start" route
+
+2. Start page "/start/:quizId" :
+  a. on mount => makes request to get the quiz ids GET <api>/quiz/:id and gets
+     the first question (w/out the answer)
+  b. view => the user sees the Question component in the view with the next button disabled
+  c. on click => once the user makes a selection, it calls the POST <api>/quiz/:id
+      i. this initializes the "answers" model in-memory and saves it to the answers 
+      ii. it then returns the unique id associated with that particular answers instance
+      i. it then routes them to the "/question/:answersId" route
+
+ 3. Start page "/question/:answersId" :
+  a. on mount => makes request to get the current question from the answers instance GET <api>/answers/:answersId
+     this will do 2 things : check based on the number of answers (length), and get whatever is the next question from the quiz side
+  d. the view checks the response to see if it is completed 
+      i. if it is not, repeat step 3
+      ii. if it is, render the "/completed" route with all the answers
+
+  b. view => the user sees the Question component in the view with the next button disabled (based on the one returned from A)
+  c. on click => once the user makes a selection, it calls the POST <api>/answers/:answersId
+      i. this sends the answer in the payload 
+      ii. adds it to the answers array
+      iii. chhcks the answers array length to see if it is completed 
+      IV. and returns whether it is : (if not - returns next question by getting it for the quiz) || (if so - return isCompleted : true and empty question object : {})
+     

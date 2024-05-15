@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import quizQuestions from './routes/quiz-questions.js';
-import quizAnswers from './routes/quiz-answers.js';
+import quizApi from './routes/answers.js';
+import userAnswersApi from './routes/quiz.js';
 
 const app = express();
 const PORT = 5001;
@@ -13,8 +13,8 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
-app.use(quizQuestions);
-app.use(quizAnswers);
+app.use(quizApi);
+app.use(userAnswersApi);
 
 // Start the server
 app.listen(PORT, () => {

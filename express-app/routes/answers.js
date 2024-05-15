@@ -1,10 +1,11 @@
 import express from 'express';
-import { initAnswers, getUserAnswers } from '../db/user-answers.js';
+import { initAnswers } from '../db/user-answers.js';
 const router = express.Router();
 
 // Getting the list of users from the mock database
 router.get('/answers', (req, res) => {
-  const answers = getUserAnswers();
+  // const answers = getUserAnswers();
+  const answers = [];
   res.send(answers);
 });
 
