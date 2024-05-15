@@ -1,12 +1,15 @@
 import express from 'express';
-import { getQuizIdsDb, getQuizByIdDb } from '../db/quizzes.js';
+import { Quizzes } from '../models/quizzes.js';
 const router = express.Router();
 
 // get both quiz Ids
-const getQuizIds = (req, res) => {
+const pickQuiz = (req, res) => {
   try {
-    const quizIds = getQuizIdsDb();
-    res.status(200).json(quizIds);
+    const quizIds = Quizzes.getQuizIds();
+    const quizGenres = Quizzes.getQuizGenres();
+    setTimeout(() => {
+      res.status(200).json({ ids: quizIds, genres: quizGenres });
+    }, 500);
   } catch (err) {
     res.status(400).json(err.message);
   }
@@ -16,7 +19,7 @@ const getQuizIds = (req, res) => {
 const startQuiz = (req, res) => {
   const { id } = req.query;
   try {
-    const quiz = getQuizByIdDb(id);
+    const quiz = Quizzes.getQuizById(id);
     const { question, choices } = quiz.questions[0];
     const payload = {
       question,
@@ -30,6 +33,6 @@ const startQuiz = (req, res) => {
 };
 
 const rootPath = '/quiz';
-router.get(`${rootPath}/ids`, getQuizIds);
+router.get(`${rootPath}/pick`, pickQuiz);
 router.get(`${rootPath}/start`, startQuiz);
 export default router;

@@ -2,52 +2,46 @@
   <div class="hello">
     <h1>Welcome to the Vue Quiz App</h1>
     <h3>Pick a Quiz App genre</h3>
-    <ul>
-      <li v-if="responseData.movieQuizId">
-        <router-link
-          :to="{
-            name: 'InitQuiz',
-            params: { id: responseData.movieQuizId, genre: 'Movie' },
-          }"
-          >Movie Quiz</router-link
-        >
-      </li>
-      <li v-else>Movie Quiz</li>
-      <li v-if="responseData.musicQuizId">
-        <router-link
-          :to="{
-            name: 'StartQuiz',
-            params: { id: responseData.musicQuizId, genre: 'Music' },
-          }"
-          >Music Quiz</router-link
-        >
-      </li>
-      <li v-else>Music Quiz</li>
-    </ul>
+    <div v-if="responseData?.ids?.length > 0">
+      <QuizOptions
+        :ids="responseData.ids"
+        :genres="responseData.genres"
+        componentLink="StartQuiz"
+      />
+    </div>
+    <div v-else>
+      <AppSpinner />
+    </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import QuizOptions from '../components/QuizOptions.vue';
+import AppSpinner from '../components/AppSpinner.vue';
 export default {
   name: 'PickQuiz',
+  components: {
+    QuizOptions,
+    AppSpinner,
+  },
   data() {
     return {
       responseData: {},
     };
   },
+  // updated() {
+  //   console.log('PickQuiz', this.responseData.ids, this.responseData.genres);
+  // },
   methods: {
     async fetchQuizIds() {
       try {
-        const response = await axios.get('http://localhost:5001/quiz');
+        const response = await axios.get('http://localhost:5001/quiz/pick');
         this.responseData = response.data;
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     },
-    // initQuiz(id) {
-    //   console.log(id);
-    // },
   },
   async mounted() {
     this.fetchQuizIds();
