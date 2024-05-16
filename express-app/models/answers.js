@@ -1,21 +1,24 @@
-import { allQuizzes, newQuiz } from './answers.js';
+import { allQuizzes, newQuiz } from '../db/answers.js';
 import short from 'short-uuid';
 
-export class Answers {
+export class Answer {
   #quizzes = allQuizzes;
   #quiz = newQuiz;
 
-  constructor(genre, quizId, answer) {
+  initAnswers(genre, quizId, answer) {
+    const uuid = short.generate();
     this.#quiz = {
       ...newQuiz,
-      uuid: short.generate(),
+      uuid,
       genre,
       quizId,
-      answers: new Set(answer),
+      answers: [answer],
     };
+
+    return uuid;
   }
 
-  setNewAnswer(answer) {
+  setNextAnswer(answer) {
     this.#quiz.answers.add(answer);
   }
 
@@ -24,6 +27,8 @@ export class Answers {
   }
 
   getAnswers() {
-    return this.#quiz.answers.entries();
+    return this.#quiz;
   }
 }
+
+export const Answers = new Answer();

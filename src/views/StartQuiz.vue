@@ -9,10 +9,10 @@
         :selectionHandler="submitAnswer"
       />
     </div>
-
     <div v-else>
       <AppSpinner />
     </div>
+    <button @click="getData">Get Data</button>
   </div>
 </template>
 
@@ -32,7 +32,7 @@ export default {
     };
   },
   methods: {
-    async submitAnswer(answer) {
+    async startQuiz() {
       try {
         const quizId = this.$route.params.id;
         const response = await axios.get(
@@ -43,12 +43,24 @@ export default {
         console.error('Error fetching data:', error);
       }
     },
-    async startQuiz() {
+    async submitAnswer(answer) {
       try {
         const quizId = this.$route.params.id;
-        const response = await axios.get(
-          `http://localhost:5001/quiz/start?id=${quizId}`
-        );
+        const genre = this.$route.params.genre;
+        const response = await axios.post(`http://localhost:5001/answer/init`, {
+          genre,
+          quizId,
+          answer,
+        });
+        this.responseData = response.data;
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    },
+    async getData() {
+      try {
+        const response = await axios.get(`http://localhost:5001/answer/all`);
+        console.log('gb - response:', response);
         this.responseData = response.data;
       } catch (error) {
         console.error('Error fetching data:', error);
