@@ -24,8 +24,16 @@ export class Answer {
     return this.#quizzes.find((quiz) => quiz.uuid === id);
   }
 
-  setNextAnswer(answer) {
-    this.#quiz.answers.add(answer);
+  getAnswers() {
+    return this.#quizzes;
+  }
+
+  setNextAnswer(id, answer) {
+    const quiz = this.#quizzes.find((quiz) => quiz.uuid === id);
+    const newQuiz = { ...quiz, answers: [...quiz.answers, answer] };
+    const allQuizzesWithNewQuiz = [newQuiz];
+    this.#quizzes = allQuizzesWithNewQuiz;
+    return newQuiz;
   }
 }
 

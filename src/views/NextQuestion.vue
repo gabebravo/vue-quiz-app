@@ -12,6 +12,7 @@
     <div v-else>
       <AppSpinner />
     </div>
+    <button @click="getInfo">Info</button>
   </div>
 </template>
 
@@ -31,6 +32,15 @@ export default {
     };
   },
   methods: {
+    async getInfo() {
+      try {
+        const response = await axios.get(`http://localhost:5001/answer/all`);
+        this.responseData = response.data;
+        console.log('gb - responseData:', this.responseData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    },
     async getNextQuestion() {
       try {
         const quizId = this.$route.params.id;
@@ -38,24 +48,30 @@ export default {
           `http://localhost:5001/answer/next?id=${quizId}`
         );
         this.responseData = response.data;
+        console.log('gb - responseData:', this.responseData);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     },
     async submitAnswer(answer) {
-      close.log(answer);
-      // try {
-      //   const quizId = this.$route.params.id;
-      //   const genre = this.$route.params.genre;
-      //   const response = await axios.post(`http://localhost:5001/answer/init`, {
-      //     genre,
-      //     quizId,
-      //     answer,
-      //   });
-      //   this.responseData = response.data;
-      // } catch (error) {
-      //   console.error('Error fetching data:', error);
-      // }
+      try {
+        const quizId = this.$route.params.id;
+        const response = await axios.post(
+          `http://localhost:5001/answer/submit`,
+          {
+            quizId,
+            answer,
+          }
+        );
+        this.responseData = response.data;
+        this.$router.push({
+          name: 'NextQuestion',
+          params: { id: this.responseData.id },
+        });
+        // window.location.reload();
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
     },
   },
   async mounted() {

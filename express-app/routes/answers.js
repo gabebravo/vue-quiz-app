@@ -15,31 +15,33 @@ const initAnswers = (req, res) => {
   }
 };
 
-// const submitAnswer = (req, res) => {
-//   const quizAnswersLength = Answers.getQuizAnswers();
-//   try {
-//     if (quizAnswersLength < 10) {
-//       const { answer } = req.body;
-//       Answers.setNewAnswer(answer);
-//       setTimeout(() => {
-//         res.status(200).json({ message: 'Answer submitted successfully' });
-//       }, 500);
-//     }
-//   } catch (err) {
-//     res.status(400).json(err.message);
-//   }
-// };
+const submitAnswer = (req, res) => {
+  const { quizId, answer } = req.body;
+  const quizAnswers = Answers.getQuizAnswers(quizId);
+  console.log('gb - quizAnswers:', quizAnswers);
+  try {
+    if (quizAnswers.answers.length < 5) {
+      const value = Answers.setNextAnswer(quizId, answer);
+      console.log('gb - value:', value);
+      setTimeout(() => {
+        res.status(200).json({ message: 'Answer submitted successfully' });
+      }, 500);
+    }
+  } catch (err) {
+    res.status(400).json(err.message);
+  }
+};
 
-// const getAllAnswers = (req, res) => {
-//   try {
-//     const answers = Answers.getAnswers();
-//     setTimeout(() => {
-//       res.status(200).json(answers);
-//     }, 500);
-//   } catch (err) {
-//     res.status(400).json(err.message);
-//   }
-// };
+const getAllAnswers = (req, res) => {
+  try {
+    const answers = Answers.getAnswers();
+    setTimeout(() => {
+      res.status(200).json(answers);
+    }, 500);
+  } catch (err) {
+    res.status(400).json(err.message);
+  }
+};
 
 const nextQuestion = (req, res) => {
   try {
@@ -58,8 +60,8 @@ const nextQuestion = (req, res) => {
 };
 
 const rootPath = '/answer';
-// router.get(`${rootPath}/all`, getAllAnswers);
+router.get(`${rootPath}/all`, getAllAnswers);
 router.get(`${rootPath}/next`, nextQuestion);
 router.post(`${rootPath}/init`, initAnswers);
-// router.post(`${rootPath}/submit`, submitAnswer);
+router.post(`${rootPath}/submit`, submitAnswer);
 export default router;
