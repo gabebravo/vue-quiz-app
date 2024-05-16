@@ -16,7 +16,7 @@ export const QuizzesDb = [
       },
       {
         question: 'What was the first James Bond film?',
-        options: [
+        choices: [
           'Goldfinger',
           'Dr. No',
           'From Russia With Love',

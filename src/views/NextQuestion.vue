@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <h1>You've picked the {{ $route.params.genre }} Quiz</h1>
-    <h4>Here is your first question</h4>
+    <h4>Here is your next question</h4>
     <div v-if="responseData?.question">
       <QuizQuestion
         :question="responseData.question"
@@ -20,7 +20,7 @@ import axios from 'axios';
 import AppSpinner from '../components/AppSpinner.vue';
 import QuizQuestion from '../components/QuizQuestion/QuizQuestion.vue';
 export default {
-  name: 'StartQuiz',
+  name: 'NextQuestion',
   components: {
     AppSpinner,
     QuizQuestion,
@@ -31,11 +31,11 @@ export default {
     };
   },
   methods: {
-    async startQuiz() {
+    async getNextQuestion() {
       try {
         const quizId = this.$route.params.id;
         const response = await axios.get(
-          `http://localhost:5001/quiz/start?id=${quizId}`
+          `http://localhost:5001/answer/next?id=${quizId}`
         );
         this.responseData = response.data;
       } catch (error) {
@@ -43,26 +43,23 @@ export default {
       }
     },
     async submitAnswer(answer) {
-      try {
-        const quizId = this.$route.params.id;
-        const genre = this.$route.params.genre;
-        const response = await axios.post(`http://localhost:5001/answer/init`, {
-          genre,
-          quizId,
-          answer,
-        });
-        this.responseData = response.data;
-        this.$router.push({
-          name: 'NextQuestion',
-          params: { id: this.responseData.id },
-        });
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
+      close.log(answer);
+      // try {
+      //   const quizId = this.$route.params.id;
+      //   const genre = this.$route.params.genre;
+      //   const response = await axios.post(`http://localhost:5001/answer/init`, {
+      //     genre,
+      //     quizId,
+      //     answer,
+      //   });
+      //   this.responseData = response.data;
+      // } catch (error) {
+      //   console.error('Error fetching data:', error);
+      // }
     },
   },
   async mounted() {
-    this.startQuiz();
+    this.getNextQuestion();
   },
 };
 </script>

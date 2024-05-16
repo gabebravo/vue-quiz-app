@@ -8,7 +8,6 @@ const initAnswers = (req, res) => {
   try {
     const uuid = Answers.initAnswers(genre, quizId, answer);
     setTimeout(() => {
-      // need respond with the new quiz info
       res.status(200).json({ id: uuid });
     }, 500);
   } catch (err) {
@@ -16,40 +15,39 @@ const initAnswers = (req, res) => {
   }
 };
 
-const submitAnswer = (req, res) => {
-  const quizAnswersLength = Answers.getAnswersLength();
-  try {
-    if (quizAnswersLength < 10) {
-      const { answer } = req.body;
-      Answers.setNewAnswer(answer);
-      setTimeout(() => {
-        res.status(200).json({ message: 'Answer submitted successfully' });
-      }, 500);
-    }
-  } catch (err) {
-    res.status(400).json(err.message);
-  }
-};
+// const submitAnswer = (req, res) => {
+//   const quizAnswersLength = Answers.getQuizAnswers();
+//   try {
+//     if (quizAnswersLength < 10) {
+//       const { answer } = req.body;
+//       Answers.setNewAnswer(answer);
+//       setTimeout(() => {
+//         res.status(200).json({ message: 'Answer submitted successfully' });
+//       }, 500);
+//     }
+//   } catch (err) {
+//     res.status(400).json(err.message);
+//   }
+// };
 
-const getAllAnswers = (req, res) => {
-  try {
-    const answers = Answers.getAnswers();
-    console.log('gb - answers:', answers);
-    setTimeout(() => {
-      res.status(200).json(answers);
-    }, 500);
-  } catch (err) {
-    res.status(400).json(err.message);
-  }
-};
+// const getAllAnswers = (req, res) => {
+//   try {
+//     const answers = Answers.getAnswers();
+//     setTimeout(() => {
+//       res.status(200).json(answers);
+//     }, 500);
+//   } catch (err) {
+//     res.status(400).json(err.message);
+//   }
+// };
 
 const nextQuestion = (req, res) => {
   try {
-    const nextQuestionIndex = Answers.getAnswersLength();
     const { id } = req.query;
+    const quizAnswers = Answers.getQuizAnswers(id);
     const nextQuestionInQuiz = Quizzes.getQuestionByIndex(
-      id,
-      nextQuestionIndex
+      quizAnswers.quizId,
+      quizAnswers.answers.length
     );
     setTimeout(() => {
       res.status(200).json(nextQuestionInQuiz);
@@ -60,8 +58,8 @@ const nextQuestion = (req, res) => {
 };
 
 const rootPath = '/answer';
-router.get(`${rootPath}/all`, getAllAnswers);
+// router.get(`${rootPath}/all`, getAllAnswers);
 router.get(`${rootPath}/next`, nextQuestion);
 router.post(`${rootPath}/init`, initAnswers);
-router.post(`${rootPath}/submit`, submitAnswer);
+// router.post(`${rootPath}/submit`, submitAnswer);
 export default router;

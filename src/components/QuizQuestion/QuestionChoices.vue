@@ -55,7 +55,7 @@ export default {
 <style scoped>
 .outer-container {
   display: flex;
-  justify-content: center; /* Center the grid horizontally */
+  justify-content: center;
 }
 .inner-container {
   display: grid;
@@ -64,7 +64,12 @@ export default {
 .row-container {
   display: flex;
 }
-button {
+button:disabled {
   color: #42b983;
+  cursor: no-drop;
+}
+button:enabled {
+  color: #42b983;
+  cursor: pointer;
 }
 </style>

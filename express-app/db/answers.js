@@ -1,5 +1,5 @@
 export const allQuizzes = [];
-export const newQuiz = {
+export const emptyQuiz = {
   uuid: '',
   genre: '',
   quizId: '',
