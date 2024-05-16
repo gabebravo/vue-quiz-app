@@ -20,6 +20,11 @@ class Quiz {
     const quiz = this.getQuizById(id);
     return quiz.questions[index];
   }
+
+  getQuestionsById(id) {
+    const quiz = this.getQuizById(id);
+    return quiz.questions;
+  }
 }
 
 export const Quizzes = new Quiz();
