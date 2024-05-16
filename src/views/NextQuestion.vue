@@ -64,11 +64,7 @@ export default {
           }
         );
         this.responseData = response.data;
-        this.$router.push({
-          name: 'NextQuestion',
-          params: { id: this.responseData.id },
-        });
-        // window.location.reload();
+        this.getNextQuestion();
       } catch (error) {
         console.error('Error fetching data:', error);
       }
