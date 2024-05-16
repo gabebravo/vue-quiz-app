@@ -18,13 +18,11 @@ const initAnswers = (req, res) => {
 const submitAnswer = (req, res) => {
   const { quizId, answer } = req.body;
   const quizAnswers = Answers.getQuizAnswers(quizId);
-  console.log('gb - quizAnswers:', quizAnswers);
   try {
-    if (quizAnswers.answers.length < 5) {
-      const value = Answers.setNextAnswer(quizId, answer);
-      console.log('gb - value:', value);
+    if (!quizAnswers.answers.isComplete) {
+      const updatedQuiz = Answers.setNextAnswer(quizId, answer);
       setTimeout(() => {
-        res.status(200).json({ message: 'Answer submitted successfully' });
+        res.status(200).json({ isComplete: updatedQuiz.isComplete });
       }, 500);
     }
   } catch (err) {

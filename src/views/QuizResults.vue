@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
-    <h1>You've picked the {{ this.$route.params.genre }} Quiz</h1>
-    <h4>Here is your first question</h4>
+    <h2>You've Completed the Quiz</h2>
+    <h4>Here's how you did</h4>
     <div v-if="responseData?.question">
       <QuizQuestion
         :question="responseData.question"
@@ -12,6 +12,7 @@
     <div v-else>
       <AppSpinner />
     </div>
+    <button @click="getInfo">Info</button>
   </div>
 </template>
 
@@ -20,7 +21,7 @@ import axios from 'axios';
 import AppSpinner from '../components/AppSpinner.vue';
 import QuizQuestion from '../components/QuizQuestion/QuizQuestion.vue';
 export default {
-  name: 'StartQuiz',
+  name: 'NextQuestion',
   components: {
     AppSpinner,
     QuizQuestion,
@@ -31,13 +32,23 @@ export default {
     };
   },
   methods: {
-    async startQuiz() {
+    async getInfo() {
+      try {
+        const response = await axios.get(`http://localhost:5001/answer/all`);
+        this.responseData = response.data;
+        console.log('gb - responseData:', this.responseData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    },
+    async getNextQuestion() {
       try {
         const quizId = this.$route.params.id;
         const response = await axios.get(
-          `http://localhost:5001/quiz/start?id=${quizId}`
+          `http://localhost:5001/answer/next?id=${quizId}`
         );
         this.responseData = response.data;
+        console.log('gb - responseData:', this.responseData);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -45,24 +56,29 @@ export default {
     async submitAnswer(answer) {
       try {
         const quizId = this.$route.params.id;
-        const genre = this.$route.params.genre;
-        const response = await axios.post(`http://localhost:5001/answer/init`, {
-          genre,
-          quizId,
-          answer,
-        });
+        const response = await axios.post(
+          `http://localhost:5001/answer/submit`,
+          {
+            quizId,
+            answer,
+          }
+        );
         this.responseData = response.data;
-        this.$router.push({
-          name: 'NextQuestion',
-          params: { id: this.responseData.id },
-        });
+        if (this.responseData.isComplete) {
+          this.$router.push({
+            name: 'QuizResults',
+            params: { id: quizId },
+          });
+        } else {
+          this.getNextQuestion();
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     },
   },
   async mounted() {
-    this.startQuiz();
+    this.getNextQuestion();
   },
 };
 </script>

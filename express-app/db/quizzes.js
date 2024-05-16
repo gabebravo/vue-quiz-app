@@ -24,8 +24,7 @@ export const QuizzesDb = [
         ],
       },
       {
-        question:
-          'Who starred as Bruce Wayne and Batman in Tim Burton&#039;s 1989 movie &quot;Batman&quot;?',
+        question: `Who starred as Bruce Wayne and Batman in Tim Burton's 1989 movie Batman?`,
         choices: [
           'George Clooney',
           'Val Kilmer',
@@ -43,8 +42,7 @@ export const QuizzesDb = [
         ],
       },
       {
-        question:
-          'What is the orange and white bot&#039;s name in &quot;Star Wars: The Force Awakens&quot;?',
+        question: `What is the orange and white bot's name in Star Wars: The Force Awakens`,
         choices: ['BB-3', 'AA-A', 'BB-8', 'R2-D2'],
       },
     ],
@@ -81,9 +79,8 @@ export const QuizzesDb = [
         ],
       },
       {
-        question:
-          'Who had a 1969 top 5 hit with the song,  &#039;A Boy Named Sue&#039;?',
-        incorrect_answers: [
+        question: 'Who had a 1969 top 5 hit with the song, A Boy Named Sue?',
+        choices: [
           'Bob Dylan',
           'Johnny Cash',
           'Willie Nelson',

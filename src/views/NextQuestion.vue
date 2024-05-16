@@ -1,7 +1,6 @@
 <template>
   <div class="hello">
-    <h1>You've picked the {{ $route.params.genre }} Quiz</h1>
-    <h4>Here is your next question</h4>
+    <h2>Here is your next question</h2>
     <div v-if="responseData?.question">
       <QuizQuestion
         :question="responseData.question"
@@ -64,7 +63,14 @@ export default {
           }
         );
         this.responseData = response.data;
-        this.getNextQuestion();
+        if (this.responseData.isComplete) {
+          this.$router.push({
+            name: 'QuizResults',
+            params: { id: quizId },
+          });
+        } else {
+          this.getNextQuestion();
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       }

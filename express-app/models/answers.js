@@ -30,7 +30,9 @@ export class Answer {
 
   setNextAnswer(id, answer) {
     const quiz = this.#quizzes.find((quiz) => quiz.uuid === id);
-    const newQuiz = { ...quiz, answers: [...quiz.answers, answer] };
+    // TODO : compare the length of the answers array with the number of questions in the quiz
+    const isComplete = quiz.answers.length + 1 === 5;
+    const newQuiz = { ...quiz, answers: [...quiz.answers, answer], isComplete };
     const allQuizzesWithNewQuiz = [newQuiz];
     this.#quizzes = allQuizzesWithNewQuiz;
     return newQuiz;
