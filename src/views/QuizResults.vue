@@ -2,7 +2,7 @@
   <div class="hello">
     <h2>You've Completed the Quiz</h2>
     <h4>Here's how you did</h4>
-    <!-- <div v-if="responseData?.question">
+    <div v-if="responseData?.question">
       <QuizQuestion
         :question="responseData.question"
         :choices="responseData.choices"
@@ -11,20 +11,31 @@
     </div>
     <div v-else>
       <AppSpinner />
-    </div> -->
-    <div v-if="responseData?.questions">{{ responseData?.questions }}</div>
-    <div v-if="responseData?.answers">{{ responseData?.answers }}</div>
+    </div>
+    <div v-for="(question, index) in responseData?.questions" :key="index">
+      <QuizQuestion
+        :question="question.question"
+        :choices="question.choices"
+        :selectionHandler="() => {}"
+      />
+      <label>{{ responseData?.answers[index] }}</label
+      ><br />
+    </div>
     <button @click="ReturnHome">Play Again!</button>
-    <button @click="getInfo">Info</button>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import AppSpinner from '../components/AppSpinner.vue';
+import QuizQuestion from '../components/QuizQuestion/QuizQuestion.vue';
 
 export default {
   name: 'QuizResults',
-  components: {},
+  components: {
+    AppSpinner,
+    QuizQuestion,
+  },
   data() {
     return {
       responseData: {},
@@ -42,7 +53,6 @@ export default {
         const quizResponse = await axios.get(
           `http://localhost:5001/quiz/questions?quizId=${quizId}`
         );
-        console.log('gb - quizResponse:', quizResponse.data);
 
         this.responseData.questions = quizResponse.data.questions;
       } catch (error) {
