@@ -67,9 +67,19 @@ export default {
 button:disabled {
   color: #42b983;
   cursor: no-drop;
+  border-radius: 20px;
+  border: 1px solid;
+  padding: 3px 9px;
+  font-weight: 500;
+  background-color: #f1f1f1;
 }
 button:enabled {
   color: #42b983;
   cursor: pointer;
+  border-radius: 20px;
+  border: 1px solid;
+  padding: 3px 9px;
+  font-weight: 600;
+  background-color: #fff;
 }
 </style>

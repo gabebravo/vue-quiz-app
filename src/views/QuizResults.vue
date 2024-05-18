@@ -2,24 +2,19 @@
   <div class="hello">
     <h2>You've Completed the Quiz</h2>
     <h4>Here's how you did</h4>
-    <div v-if="responseData?.question">
-      <QuizQuestion
-        :question="responseData.question"
-        :choices="responseData.choices"
-        :selectionHandler="submitAnswer"
-      />
+    <div v-if="responseData?.questions">
+      <div v-for="(question, index) in responseData?.questions" :key="index">
+        <ResultsQuestions
+          :question="question.question"
+          :choices="question.choices"
+          :answer="responseData?.answers[index]"
+        />
+        <label>{{ responseData?.answers[index] }}</label
+        ><br />
+      </div>
     </div>
     <div v-else>
       <AppSpinner />
-    </div>
-    <div v-for="(question, index) in responseData?.questions" :key="index">
-      <QuizQuestion
-        :question="question.question"
-        :choices="question.choices"
-        :selectionHandler="() => {}"
-      />
-      <label>{{ responseData?.answers[index] }}</label
-      ><br />
     </div>
     <button @click="ReturnHome">Play Again!</button>
   </div>
@@ -28,13 +23,13 @@
 <script>
 import axios from 'axios';
 import AppSpinner from '../components/AppSpinner.vue';
-import QuizQuestion from '../components/QuizQuestion/QuizQuestion.vue';
+import ResultsQuestions from '../components/QuizResults/ResultsQuestions.vue';
 
 export default {
   name: 'QuizResults',
   components: {
     AppSpinner,
-    QuizQuestion,
+    ResultsQuestions,
   },
   data() {
     return {
@@ -47,12 +42,14 @@ export default {
         const answerResponse = await axios.get(
           `http://localhost:5001/answer/all`
         );
+        console.log('gb - answerResponse:', answerResponse);
         const { quizId, answers } = answerResponse.data[0];
         this.responseData.answers = answers;
 
         const quizResponse = await axios.get(
           `http://localhost:5001/quiz/questions?quizId=${quizId}`
         );
+        console.log('gb - quizResponse:', quizResponse);
 
         this.responseData.questions = quizResponse.data.questions;
       } catch (error) {

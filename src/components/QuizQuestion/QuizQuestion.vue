@@ -1,7 +1,6 @@
 <template>
   <div>
     <QuestionLabel :question="question" />
-    <h4>Please choose one of the options below</h4>
     <QuestionChoices :choices="choices" :selectionHandler="selectionHandler" />
   </div>
 </template>
