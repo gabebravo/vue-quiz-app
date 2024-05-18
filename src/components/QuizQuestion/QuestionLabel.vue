@@ -1,6 +1,6 @@
 <template>
   <div class="outer-container">
-    <div class="inner-container">{{ question }}</div>
+    <div>{{ question }}</div>
   </div>
 </template>
 
@@ -20,12 +20,7 @@ export default {
 <style scoped>
 .outer-container {
   display: flex;
-  justify-content: center;
   text-align: left;
   margin-bottom: 1rem;
-}
-.inner-container {
-  display: grid;
-  width: 60%;
 }
 </style>

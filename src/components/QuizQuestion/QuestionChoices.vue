@@ -1,6 +1,6 @@
 <template>
   <div class="outer-container">
-    <div class="inner-container">
+    <div class="form-wrapper">
       <form @submit.prevent="handleSubmit">
         <div
           class="row-container"
@@ -55,17 +55,16 @@ export default {
 <style scoped>
 .outer-container {
   display: flex;
-  justify-content: center;
 }
-.inner-container {
-  display: grid;
-  width: 60%;
+.form-wrapper {
+  width: 100%;
 }
 .row-container {
   display: flex;
+  margin: 5px 0px;
 }
 button:disabled {
-  color: #42b983;
+  color: #a3a0a0;
   cursor: no-drop;
   border-radius: 20px;
   border: 1px solid;
@@ -79,7 +78,7 @@ button:enabled {
   border-radius: 20px;
   border: 1px solid;
   padding: 3px 9px;
-  font-weight: 600;
+  font-weight: 500;
   background-color: #fff;
 }
 </style>

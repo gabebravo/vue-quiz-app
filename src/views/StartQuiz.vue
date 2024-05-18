@@ -2,7 +2,7 @@
   <div class="hello">
     <h1>You've picked the {{ this.$route.params.genre }} Quiz</h1>
     <h4>Here is your first question</h4>
-    <div v-if="responseData?.question">
+    <div class="outter-container" v-if="responseData?.question">
       <QuizQuestion
         :question="responseData.question"
         :choices="responseData.choices"
@@ -66,3 +66,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.outter-container {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  margin: auto;
+}
+</style>

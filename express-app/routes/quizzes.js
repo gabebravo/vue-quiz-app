@@ -28,12 +28,14 @@ const startQuiz = (req, res) => {
   }
 };
 
-const quizQuestions = (req, res) => {
+const quizInfo = (req, res) => {
   const { quizId } = req.query;
   try {
-    const questions = Quizzes.getQuestionsById(quizId);
+    const quiz = Quizzes.getQuizById(quizId);
     setTimeout(() => {
-      res.status(200).json({ questions });
+      res
+        .status(200)
+        .json({ questions: quiz.questions, answers: quiz.answers });
     }, 500);
   } catch (err) {
     res.status(400).json(err.message);
@@ -43,5 +45,5 @@ const quizQuestions = (req, res) => {
 const rootPath = '/quiz';
 router.get(`${rootPath}/pick`, pickQuiz);
 router.get(`${rootPath}/start`, startQuiz);
-router.get(`${rootPath}/questions`, quizQuestions);
+router.get(`${rootPath}/questions`, quizInfo);
 export default router;

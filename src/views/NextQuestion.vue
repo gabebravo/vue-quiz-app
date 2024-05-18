@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <h2>Here is your next question</h2>
-    <div v-if="responseData?.question">
+    <div class="outter-container" v-if="responseData?.question">
       <QuizQuestion
         :question="responseData.question"
         :choices="responseData.choices"
@@ -70,3 +70,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.outter-container {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  margin: auto;
+}
+</style>
