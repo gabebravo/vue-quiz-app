@@ -1,10 +1,10 @@
 <template>
   <div class="hello">
-    <h2>You've Completed the Quiz</h2>
     <div class="play-again">
-      <div><h4>Here's how you did</h4></div>
+      <h2>You've Completed the Quiz</h2>
       <div><button @click="ReturnHome">Play Again!</button></div>
     </div>
+    <div><h3>Here's how you did</h3></div>
     <div class="outter-container" v-if="responseData?.questions">
       <div
         class="inner-container"
@@ -99,6 +99,9 @@ button {
   padding: 5px 10px;
   font-weight: 500;
   background-color: #42b983;
+}
+h3 {
+  margin: 10px;
 }
 .play-again {
   display: flex;
