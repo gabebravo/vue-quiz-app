@@ -5,6 +5,7 @@ export class Answer {
   #quizzes = allQuizzes;
   #quiz = emptyQuiz;
 
+  // initialize the user's answers with the first answer
   initAnswers(genre, quizId, answer) {
     const uuid = short.generate();
     const newQuiz = {

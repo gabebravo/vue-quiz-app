@@ -28,6 +28,7 @@ const startQuiz = (req, res) => {
   }
 };
 
+// get quiz questions and answers
 const quizInfo = (req, res) => {
   const { quizId } = req.query;
   try {

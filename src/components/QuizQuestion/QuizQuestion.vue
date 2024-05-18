@@ -6,7 +6,6 @@
 </template>
 
 <script>
-// import axios from 'axios';
 import QuestionLabel from './QuestionLabel.vue';
 import QuestionChoices from './QuestionChoices.vue';
 export default {

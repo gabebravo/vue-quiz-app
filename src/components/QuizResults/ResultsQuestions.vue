@@ -43,13 +43,9 @@ export default {
       required: true,
     },
   },
-  mounted() {
-    // console.log('gb - this.answer:', this.answer);
-  },
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .row-container {
   display: flex;

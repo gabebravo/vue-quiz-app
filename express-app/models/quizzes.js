@@ -1,7 +1,6 @@
 import { QuizzesDb } from '../db/quizzes.js';
 
 class Quiz {
-  // Declare: every Color instance has a private field called #values.
   #quizzes = QuizzesDb;
 
   getQuizIds() {
@@ -19,11 +18,6 @@ class Quiz {
   getQuestionByIndex(id, index) {
     const quiz = this.getQuizById(id);
     return quiz.questions[index];
-  }
-
-  getQuestionsById(id) {
-    const quiz = this.getQuizById(id);
-    return quiz.questions;
   }
 }
 

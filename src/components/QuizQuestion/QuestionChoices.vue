@@ -38,7 +38,7 @@ export default {
   },
   data() {
     return {
-      selectedOption: null, // Initially no option selected
+      selectedOption: null,
     };
   },
   methods: {
@@ -51,7 +51,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .outer-container {
   display: flex;
