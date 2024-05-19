@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import PickQuiz from './views/PickQuiz.vue';
-import StartQuiz from './views/StartQuiz.vue';
-import NextQuestion from './views/NextQuestion.vue';
-import QuizResults from './views/QuizResults.vue';
+import PickQuiz from './pages/PickQuiz.vue';
+import StartQuiz from './pages/StartQuiz.vue';
+import NextQuestion from './pages/NextQuestion.vue';
+import QuizResults from './pages/QuizResults.vue';
 
 const routes = [
   {
