@@ -1,29 +1,26 @@
-# quiz-app
+# vue-quiz-app
 
 ## Project setup
 
 ```
-npm install
+1. git clone git@github.com:gabebravo/vue-quiz-app.git
+2. from the root folder and run : npm i
+3. cd into ./express-app and run : npm i
 ```
 
 ### Compiles and hot-reloads for development
 
 ```
-npm run serve
+1. open 2 tabs in terminal for the root level vue app and another for the ./express-app
+2. run >> npm run start to get the backend running
+3. run >> npm run serve to the the vue app running
+4. open >> http://localhost:8080/ in a browser tab
 ```
 
-### Compiles and minifies for production
+### Frontend and Backend running in Terminal
 
-```
-npm run build
-```
+![Terminal](./github/terminal.jpg)
 
-### Lints and fixes files
+### App runing on localhost
 
-```
-npm run lint
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
+![Localhost](./github/app.jpg)
