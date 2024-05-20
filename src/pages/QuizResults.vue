@@ -14,26 +14,9 @@
         <ResultsQuestions
           :question="question.question"
           :choices="question.choices"
-          :answer="responseData?.answers[index]"
+          :userAnswer="responseData?.answers[index]"
+          :quizAnswer="responseData?.quizAnswers[index]"
         />
-        <div class="label">
-          <span
-            v-if="
-              responseData?.answers[index] === responseData?.quizAnswers[index]
-            "
-          >
-            The answer is :
-            <label class="right-answer">{{
-              responseData?.quizAnswers[index]
-            }}</label>
-          </span>
-          <span v-else>
-            The answer is :
-            <label class="wrong-answer">{{
-              responseData?.quizAnswers[index]
-            }}</label>
-          </span>
-        </div>
         <hr />
       </div>
     </div>
@@ -108,15 +91,5 @@ h3 {
 }
 .inner-container {
   margin: 10px 0px;
-}
-.label {
-  margin: 10px;
-  font-weight: 500;
-}
-.right-answer {
-  color: #42b983;
-}
-.wrong-answer {
-  color: #ff0800;
 }
 </style>

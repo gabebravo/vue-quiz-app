@@ -72,12 +72,12 @@ button:disabled {
   background-color: #f1f1f1;
 }
 button:enabled {
-  color: #42b983;
+  color: #fff;
   cursor: pointer;
   border-radius: 20px;
   border: 1px solid;
   padding: 3px 9px;
   font-weight: 500;
-  background-color: #fff;
+  background-color: #42b983;
 }
 </style>

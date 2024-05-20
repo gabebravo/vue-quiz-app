@@ -3,6 +3,7 @@ import PickQuiz from './pages/PickQuiz.vue';
 import StartQuiz from './pages/StartQuiz.vue';
 import NextQuestion from './pages/NextQuestion.vue';
 import QuizResults from './pages/QuizResults.vue';
+import NotFound from './pages/NotFound.vue';
 
 const routes = [
   {
@@ -27,6 +28,11 @@ const routes = [
     name: 'QuizResults',
     component: QuizResults,
     props: true,
+  },
+  {
+    path: '/:pathMatch(.*)*', // Catch-all route
+    name: 'NotFound',
+    component: NotFound,
   },
 ];
 
