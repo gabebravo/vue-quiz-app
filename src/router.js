@@ -17,7 +17,7 @@ const routes = [
     props: true,
   },
   {
-    path: '/start/:id',
+    path: '/continue/:id',
     name: 'NextQuestion',
     component: NextQuestion,
     props: true,

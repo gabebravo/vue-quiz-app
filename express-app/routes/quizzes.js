@@ -2,8 +2,7 @@ import express from 'express';
 import { Quizzes } from '../models/quizzes.js';
 const router = express.Router();
 
-// get both quiz Ids
-const pickQuiz = (req, res) => {
+const getQuizIds = (req, res) => {
   try {
     const quizIds = Quizzes.getQuizIds();
     const quizGenres = Quizzes.getQuizGenres();
@@ -15,8 +14,7 @@ const pickQuiz = (req, res) => {
   }
 };
 
-// get first question to start quiz
-const startQuiz = (req, res) => {
+const getFirstQuestion = (req, res) => {
   const { id } = req.query;
   try {
     const { question, choices } = Quizzes.getQuestionByIndex(id, 0);
@@ -28,8 +26,7 @@ const startQuiz = (req, res) => {
   }
 };
 
-// get quiz questions and answers
-const quizInfo = (req, res) => {
+const getQuizInfo = (req, res) => {
   const { quizId } = req.query;
   try {
     const quiz = Quizzes.getQuizById(quizId);
@@ -44,7 +41,7 @@ const quizInfo = (req, res) => {
 };
 
 const rootPath = '/quiz';
-router.get(`${rootPath}/pick`, pickQuiz);
-router.get(`${rootPath}/start`, startQuiz);
-router.get(`${rootPath}/questions`, quizInfo);
+router.get(`${rootPath}/pick`, getQuizIds);
+router.get(`${rootPath}/start`, getFirstQuestion);
+router.get(`${rootPath}/questions`, getQuizInfo);
 export default router;

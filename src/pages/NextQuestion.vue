@@ -44,7 +44,7 @@ export default {
     async submitAnswer(answer) {
       try {
         const quizId = this.$route.params.id;
-        const response = await axios.post(
+        const response = await axios.put(
           `http://localhost:5001/answer/submit`,
           {
             quizId,

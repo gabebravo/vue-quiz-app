@@ -15,7 +15,7 @@ const initAnswers = (req, res) => {
   }
 };
 
-const submitAnswer = (req, res) => {
+const updateAnswers = (req, res) => {
   const { quizId, answer } = req.body;
   const quizAnswers = Answers.getQuizAnswers(quizId);
   try {
@@ -41,7 +41,7 @@ const getAllAnswers = (req, res) => {
   }
 };
 
-const nextQuestion = (req, res) => {
+const getNextQuestion = (req, res) => {
   try {
     const { id } = req.query;
     const quizAnswers = Answers.getQuizAnswers(id);
@@ -59,7 +59,7 @@ const nextQuestion = (req, res) => {
 
 const rootPath = '/answer';
 router.get(`${rootPath}/all`, getAllAnswers);
-router.get(`${rootPath}/next`, nextQuestion);
+router.get(`${rootPath}/next`, getNextQuestion);
 router.post(`${rootPath}/init`, initAnswers);
-router.post(`${rootPath}/submit`, submitAnswer);
+router.put(`${rootPath}/submit`, updateAnswers);
 export default router;
