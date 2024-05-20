@@ -16,9 +16,10 @@
 </template>
 
 <script>
-import axios from 'axios';
 import AppSpinner from '../components/AppSpinner.vue';
 import QuizQuestion from '../components/QuizQuestion/QuizQuestion.vue';
+import { startQuizAsync, submitInitialAnswerAsync } from '../async/index.js';
+
 export default {
   name: 'StartQuiz',
   components: {
@@ -32,33 +33,22 @@ export default {
   },
   methods: {
     async startQuiz() {
-      try {
-        const quizId = this.$route.params.id;
-        const response = await axios.get(
-          `http://localhost:5001/quiz/start?id=${quizId}`
-        );
-        this.responseData = response.data;
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
+      const quizId = this.$route.params.id;
+      this.responseData = await startQuizAsync(quizId);
     },
     async submitAnswer(answer) {
-      try {
-        const quizId = this.$route.params.id;
-        const genre = this.$route.params.genre;
-        const response = await axios.post(`http://localhost:5001/answer/init`, {
-          genre,
-          quizId,
-          answer,
-        });
-        this.responseData = response.data;
-        this.$router.push({
-          name: 'NextQuestion',
-          params: { id: this.responseData.id },
-        });
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
+      const quizId = this.$route.params.id;
+      const genre = this.$route.params.genre;
+      this.responseData = await submitInitialAnswerAsync({
+        genre,
+        quizId,
+        answer,
+      });
+
+      this.$router.push({
+        name: 'NextQuestion',
+        params: { id: this.responseData.id },
+      });
     },
   },
   async mounted() {

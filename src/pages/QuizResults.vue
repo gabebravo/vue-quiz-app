@@ -44,9 +44,9 @@
 </template>
 
 <script>
-import axios from 'axios';
 import AppSpinner from '../components/AppSpinner.vue';
 import ResultsQuestions from '../components/QuizResults/ResultsQuestions.vue';
+import { getAllAnswersAsync, getQuizQuestions } from '../async/index.js';
 
 export default {
   name: 'QuizResults',
@@ -61,22 +61,13 @@ export default {
   },
   methods: {
     async getAllinfo() {
-      try {
-        const answerResponse = await axios.get(
-          `http://localhost:5001/answer/all`
-        );
-        const { quizId, answers } = answerResponse.data[0];
-        this.responseData.answers = answers;
+      const { quizId, answers } = await getAllAnswersAsync();
+      this.responseData.answers = answers;
 
-        const quizResponse = await axios.get(
-          `http://localhost:5001/quiz/questions?quizId=${quizId}`
-        );
+      const quizResponse = await getQuizQuestions(quizId);
 
-        this.responseData.questions = quizResponse.data.questions;
-        this.responseData.quizAnswers = quizResponse.data.answers;
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
+      this.responseData.questions = quizResponse.data.questions;
+      this.responseData.quizAnswers = quizResponse.data.answers;
     },
     ReturnHome() {
       this.$router.push({

@@ -16,9 +16,9 @@
 </template>
 
 <script>
-import axios from 'axios';
 import QuizOptions from '../components/QuizOptions.vue';
 import AppSpinner from '../components/AppSpinner.vue';
+import { getQuizIdsAsync } from '../async/index.js';
 export default {
   name: 'PickQuiz',
   components: {
@@ -31,17 +31,12 @@ export default {
     };
   },
   methods: {
-    async fetchQuizIds() {
-      try {
-        const response = await axios.get('http://localhost:5001/quiz/pick');
-        this.responseData = response.data;
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
+    async getQuizIds() {
+      this.responseData = await getQuizIdsAsync();
     },
   },
   async mounted() {
-    this.fetchQuizIds();
+    this.getQuizIds();
   },
 };
 </script>
