@@ -12,8 +12,8 @@
 
 ```
 1. open 2 tabs in terminal for the root level vue app and another for the ./express-app
-2. run >> npm run start to get the backend running
-3. run >> npm run serve to the the vue app running
+2. run >> npm run start to get the express backend running
+3. run >> npm run serve to get the vue frontend running
 4. open >> http://localhost:8080/ in a browser tab
 ```
 
