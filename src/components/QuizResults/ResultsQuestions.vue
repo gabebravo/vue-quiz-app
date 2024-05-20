@@ -73,11 +73,6 @@ export default {
       required: true,
     },
   },
-  mounted() {
-    console.log('userAnswer', this.userAnswer);
-    console.log('quizAnswer', this.quizAnswer);
-    console.log('\n');
-  },
 };
 </script>
 
