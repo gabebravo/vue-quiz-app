@@ -40,7 +40,6 @@ export default {
     async getNextQuestion() {
       const quizId = this.$route.params.id;
       const result = await getNextQuestionAsync(quizId);
-      console.log('gb - result:', result);
       if (result.isComplete) {
         this.showResults = true;
       } else {
@@ -53,7 +52,6 @@ export default {
         quizId,
         answer,
       });
-      console.log('gb - info:', info);
       this.responseData = info;
       if (info.isComplete) {
         this.showResults = true;

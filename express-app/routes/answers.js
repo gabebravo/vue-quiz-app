@@ -50,10 +50,9 @@ const getNextQuestion = (req, res) => {
       quizAnswers.answers.length
     );
     setTimeout(() => {
-      res.status(200).json({
-        ...nextQuestionInQuiz,
-        isComplete: quizAnswers.quizLength === quizAnswers.answers.length,
-      });
+      res
+        .status(200)
+        .json({ ...nextQuestionInQuiz, isComplete: quizAnswers.isComplete });
     }, 500);
   } catch (err) {
     res.status(400).json(err.message);

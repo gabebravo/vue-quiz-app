@@ -9,14 +9,12 @@ export class Answer {
   // initialize the user's answers with the first answer
   initAnswers(genre, quizId, answer) {
     const uuid = short.generate();
-    const quiz = Quizzes.getQuizById(quizId);
     const newQuiz = {
       ...emptyQuiz,
       uuid,
       genre,
       quizId,
       answers: [answer],
-      quizLength: quiz.questions.length,
     };
 
     const allQuizzesWithNewQuiz = [newQuiz];
@@ -33,10 +31,15 @@ export class Answer {
   }
 
   setNextAnswer(id, answer) {
-    const quiz = this.#quizzes.find((quiz) => quiz.uuid === id);
-    // TODO : compare the length of the answers array with the number of questions in the quiz
-    const isComplete = quiz.answers.length + 1 === 5;
-    const newQuiz = { ...quiz, answers: [...quiz.answers, answer], isComplete };
+    const userQuiz = this.#quizzes.find((quiz) => quiz.uuid === id);
+    const sourceQuiz = Quizzes.getQuizById(userQuiz.quizId);
+    const isComplete =
+      userQuiz.answers.length + 1 === sourceQuiz.questions.length;
+    const newQuiz = {
+      ...userQuiz,
+      answers: [...userQuiz.answers, answer],
+      isComplete,
+    };
     const allQuizzesWithNewQuiz = [newQuiz];
     this.#quizzes = allQuizzesWithNewQuiz;
     return newQuiz;
