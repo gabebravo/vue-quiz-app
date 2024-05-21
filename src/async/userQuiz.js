@@ -10,10 +10,10 @@ export const getNextUserQuestionAsync = async (quizId) => {
   }
 };
 
-export const getUserQuizAsync = async () => {
+export const getUserQuizResultsAsync = async (quizId) => {
   try {
-    const response = await axios.get(`${API_URL}/all`);
-    return response.data[0];
+    const response = await axios.get(`${API_URL}/results?id=${quizId}`);
+    return response.data;
   } catch (error) {
     console.error('Error fetching data:', error);
   }

@@ -30,7 +30,7 @@
 import AppSpinner from '../AppSpinner.vue';
 import ResultsQuestions from './ResultsQuestions.vue';
 import {
-  getUserQuizAsync,
+  getUserQuizResultsAsync,
   getSourceQuizQuestionsAsync,
 } from '../../async/index.js';
 
@@ -47,9 +47,10 @@ export default {
   },
   methods: {
     async getUserQuizInfo() {
-      const { quizId, answers } = await getUserQuizAsync();
-      this.responseData.answers = answers;
+      const userQuizId = this.$route.params.id;
+      const { quizId, answers } = await getUserQuizResultsAsync(userQuizId);
 
+      this.responseData.answers = answers;
       const sourceQuiz = await getSourceQuizQuestionsAsync(quizId);
 
       this.responseData.questions = sourceQuiz.data.questions;

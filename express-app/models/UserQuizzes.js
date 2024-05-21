@@ -17,8 +17,7 @@ export class UserQuiz {
       answers: [answer],
     };
 
-    const allQuizzesWithNewQuiz = [newQuiz];
-    this.#quizzes = allQuizzesWithNewQuiz;
+    this.#quizzes = [...this.#quizzes, newQuiz];
     return uuid;
   }
 
@@ -31,18 +30,19 @@ export class UserQuiz {
   }
 
   setNextAnswer(id, answer) {
-    const userQuiz = this.#quizzes.find((quiz) => quiz.uuid === id);
+    const userQuiz = this.getQuizById(id);
     const sourceQuiz = SourceQuizzes.getQuizById(userQuiz.quizId);
     const isComplete =
       userQuiz.answers.length + 1 === sourceQuiz.questions.length;
-    const newQuiz = {
+    const updatedQuiz = {
       ...userQuiz,
       answers: [...userQuiz.answers, answer],
       isComplete,
     };
-    const allQuizzesWithNewQuiz = [newQuiz];
-    this.#quizzes = allQuizzesWithNewQuiz;
-    return newQuiz;
+    this.#quizzes = [...this.#quizzes].map((quiz) =>
+      quiz.uuid === id ? updatedQuiz : quiz
+    );
+    return updatedQuiz;
   }
 }
 

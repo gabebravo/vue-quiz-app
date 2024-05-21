@@ -30,11 +30,12 @@ const updateQuiz = (req, res) => {
   }
 };
 
-const getAllUserQuizzes = (_req, res) => {
+const getUserQuizById = (req, res) => {
   try {
-    const userQuizzes = UserQuizzes.getAllQuizzes();
+    const { id } = req.query;
+    const userQuiz = UserQuizzes.getQuizById(id);
     setTimeout(() => {
-      res.status(200).json(userQuizzes);
+      res.status(200).json(userQuiz);
     }, 500);
   } catch (err) {
     res.status(400).json(err.message);
@@ -61,7 +62,7 @@ const getNextQuestion = (req, res) => {
 };
 
 const rootPath = '/user-quiz';
-router.get(`${rootPath}/all`, getAllUserQuizzes);
+router.get(`${rootPath}/results`, getUserQuizById);
 router.get(`${rootPath}/next`, getNextQuestion);
 router.post(`${rootPath}/init`, initQuiz);
 router.put(`${rootPath}/submit`, updateQuiz);

@@ -5,7 +5,7 @@ export {
 } from './sourceQuiz.js';
 export {
   getNextUserQuestionAsync,
-  getUserQuizAsync,
+  getUserQuizResultsAsync,
   submitInitialUserAnswerAsync,
   submitNextUserAnswerAsync,
 } from './userQuiz.js';
