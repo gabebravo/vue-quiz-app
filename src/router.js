@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import PickQuiz from './pages/PickQuiz.vue';
 import StartQuiz from './pages/StartQuiz.vue';
-import NextQuestion from './pages/NextQuestion.vue';
+import TakeQuiz from './pages/TakeQuiz.vue';
 import NotFound from './pages/NotFound.vue';
 
 const routes = [
@@ -18,8 +18,8 @@ const routes = [
   },
   {
     path: '/:id',
-    name: 'NextQuestion',
-    component: NextQuestion,
+    name: 'TakeQuiz',
+    component: TakeQuiz,
     props: true,
   },
   {

@@ -3,8 +3,8 @@
     <QuizResults />
   </div>
   <div v-else class="hello">
-    <h2>Here is your next question</h2>
     <div class="outter-container" v-if="responseData?.question">
+      <h2>Here is your next question</h2>
       <QuizQuestion
         :question="responseData.question"
         :choices="responseData.choices"
@@ -27,7 +27,7 @@ import {
 } from '../async/index.js';
 
 export default {
-  name: 'NextQuestion',
+  name: 'TakeQuiz',
   components: {
     AppSpinner,
     QuizQuestion,

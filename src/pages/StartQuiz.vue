@@ -48,10 +48,8 @@ export default {
         answer,
       });
 
-      console.log('AAAA', this.responseData);
-
       this.$router.push({
-        name: 'NextQuestion',
+        name: 'TakeQuiz',
         params: { id: this.responseData.id },
       });
     },
