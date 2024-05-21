@@ -1,7 +1,11 @@
-export { getQuizIdsAsync, getQuizQuestions, startQuizAsync } from './quiz.js';
 export {
-  getNextQuestionAsync,
-  getAllAnswersAsync,
-  submitInitialAnswerAsync,
-  submitNextAnswerAsync,
-} from './answer.js';
+  getSourceQuizIdsAsync,
+  getSourceQuizQuestionsAsync,
+  startSourceQuizAsync,
+} from './sourceQuiz.js';
+export {
+  getNextUserQuestionAsync,
+  getUserQuizAsync,
+  submitInitialUserAnswerAsync,
+  submitNextUserAnswerAsync,
+} from './userQuiz.js';

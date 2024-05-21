@@ -1,7 +1,7 @@
-import { QuizzesDb } from '../db/quizzes.js';
+import { SourceQuizzesDb } from '../db/SourceQuizzesDb.js';
 
-class Quiz {
-  #quizzes = QuizzesDb;
+class SourceQuiz {
+  #quizzes = SourceQuizzesDb;
 
   getQuizIds() {
     return this.#quizzes.map((quiz) => quiz.id);
@@ -21,4 +21,4 @@ class Quiz {
   }
 }
 
-export const Quizzes = new Quiz();
+export const SourceQuizzes = new SourceQuiz();

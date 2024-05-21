@@ -29,7 +29,10 @@
 <script>
 import AppSpinner from '../AppSpinner.vue';
 import ResultsQuestions from './ResultsQuestions.vue';
-import { getAllAnswersAsync, getQuizQuestions } from '../../async/index.js';
+import {
+  getUserQuizAsync,
+  getSourceQuizQuestionsAsync,
+} from '../../async/index.js';
 
 export default {
   name: 'QuizResults',
@@ -43,14 +46,14 @@ export default {
     };
   },
   methods: {
-    async getAllinfo() {
-      const { quizId, answers } = await getAllAnswersAsync();
+    async getUserQuizInfo() {
+      const { quizId, answers } = await getUserQuizAsync();
       this.responseData.answers = answers;
 
-      const quizResponse = await getQuizQuestions(quizId);
+      const sourceQuiz = await getSourceQuizQuestionsAsync(quizId);
 
-      this.responseData.questions = quizResponse.data.questions;
-      this.responseData.quizAnswers = quizResponse.data.answers;
+      this.responseData.questions = sourceQuiz.data.questions;
+      this.responseData.quizAnswers = sourceQuiz.data.answers;
     },
     ReturnHome() {
       this.$router.push({
@@ -59,7 +62,7 @@ export default {
     },
   },
   async mounted() {
-    this.getAllinfo();
+    this.getUserQuizInfo();
   },
 };
 </script>

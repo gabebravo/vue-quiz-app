@@ -6,7 +6,7 @@
       <QuizQuestion
         :question="responseData.question"
         :choices="responseData.choices"
-        :selectionHandler="submitAnswer"
+        :selectionHandler="submitInitialUserAnswer"
       />
     </div>
     <div v-else>
@@ -18,7 +18,10 @@
 <script>
 import AppSpinner from '../components/AppSpinner.vue';
 import QuizQuestion from '../components/QuizQuestion/QuizQuestion.vue';
-import { startQuizAsync, submitInitialAnswerAsync } from '../async/index.js';
+import {
+  startSourceQuizAsync,
+  submitInitialUserAnswerAsync,
+} from '../async/index.js';
 
 export default {
   name: 'StartQuiz',
@@ -32,18 +35,20 @@ export default {
     };
   },
   methods: {
-    async startQuiz() {
+    async startSourceQuiz() {
       const quizId = this.$route.params.id;
-      this.responseData = await startQuizAsync(quizId);
+      this.responseData = await startSourceQuizAsync(quizId);
     },
-    async submitAnswer(answer) {
+    async submitInitialUserAnswer(answer) {
       const quizId = this.$route.params.id;
       const genre = this.$route.params.genre;
-      this.responseData = await submitInitialAnswerAsync({
+      this.responseData = await submitInitialUserAnswerAsync({
         genre,
         quizId,
         answer,
       });
+
+      console.log('AAAA', this.responseData);
 
       this.$router.push({
         name: 'NextQuestion',
@@ -52,7 +57,7 @@ export default {
     },
   },
   async mounted() {
-    this.startQuiz();
+    this.startSourceQuiz();
   },
 };
 </script>

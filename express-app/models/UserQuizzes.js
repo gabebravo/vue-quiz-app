@@ -1,16 +1,16 @@
-import { allQuizzes, emptyQuiz } from '../db/answers.js';
-import { Quizzes } from '../models/quizzes.js';
+import { AllUserQuizzes, EmptyUserQuiz } from '../db/UserQuizzesDb.js';
+import { SourceQuizzes } from './SourceQuizzes.js';
 import short from 'short-uuid';
 
-export class Answer {
-  #quizzes = allQuizzes;
-  #quiz = emptyQuiz;
+export class UserQuiz {
+  #quizzes = AllUserQuizzes;
+  #quiz = EmptyUserQuiz;
 
   // initialize the user's answers with the first answer
-  initAnswers(genre, quizId, answer) {
+  initQuiz(genre, quizId, answer) {
     const uuid = short.generate();
     const newQuiz = {
-      ...emptyQuiz,
+      ...this.#quiz,
       uuid,
       genre,
       quizId,
@@ -22,17 +22,17 @@ export class Answer {
     return uuid;
   }
 
-  getQuizAnswers(id) {
+  getQuizById(id) {
     return this.#quizzes.find((quiz) => quiz.uuid === id);
   }
 
-  getAnswers() {
+  getAllQuizzes() {
     return this.#quizzes;
   }
 
   setNextAnswer(id, answer) {
     const userQuiz = this.#quizzes.find((quiz) => quiz.uuid === id);
-    const sourceQuiz = Quizzes.getQuizById(userQuiz.quizId);
+    const sourceQuiz = SourceQuizzes.getQuizById(userQuiz.quizId);
     const isComplete =
       userQuiz.answers.length + 1 === sourceQuiz.questions.length;
     const newQuiz = {
@@ -46,4 +46,4 @@ export class Answer {
   }
 }
 
-export const Answers = new Answer();
+export const UserQuizzes = new UserQuiz();

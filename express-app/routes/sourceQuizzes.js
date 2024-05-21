@@ -1,11 +1,11 @@
 import express from 'express';
-import { Quizzes } from '../models/quizzes.js';
+import { SourceQuizzes } from '../models/SourceQuizzes.js';
 const router = express.Router();
 
-const getQuizIds = (req, res) => {
+const getIdsAndGenres = (_req, res) => {
   try {
-    const quizIds = Quizzes.getQuizIds();
-    const quizGenres = Quizzes.getQuizGenres();
+    const quizIds = SourceQuizzes.getQuizIds();
+    const quizGenres = SourceQuizzes.getQuizGenres();
     setTimeout(() => {
       res.status(200).json({ ids: quizIds, genres: quizGenres });
     }, 500);
@@ -17,7 +17,7 @@ const getQuizIds = (req, res) => {
 const getFirstQuestion = (req, res) => {
   const { id } = req.query;
   try {
-    const { question, choices } = Quizzes.getQuestionByIndex(id, 0);
+    const { question, choices } = SourceQuizzes.getQuestionByIndex(id, 0);
     setTimeout(() => {
       res.status(200).json({ question, choices });
     }, 500);
@@ -29,7 +29,7 @@ const getFirstQuestion = (req, res) => {
 const getQuizInfo = (req, res) => {
   const { quizId } = req.query;
   try {
-    const quiz = Quizzes.getQuizById(quizId);
+    const quiz = SourceQuizzes.getQuizById(quizId);
     setTimeout(() => {
       res
         .status(200)
@@ -40,8 +40,8 @@ const getQuizInfo = (req, res) => {
   }
 };
 
-const rootPath = '/quiz';
-router.get(`${rootPath}/pick`, getQuizIds);
+const rootPath = '/source-quiz';
+router.get(`${rootPath}/pick`, getIdsAndGenres);
 router.get(`${rootPath}/start`, getFirstQuestion);
 router.get(`${rootPath}/questions`, getQuizInfo);
 export default router;

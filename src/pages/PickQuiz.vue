@@ -18,7 +18,7 @@
 <script>
 import QuizOptions from '../components/QuizOptions.vue';
 import AppSpinner from '../components/AppSpinner.vue';
-import { getQuizIdsAsync } from '../async/index.js';
+import { getSourceQuizIdsAsync } from '../async/index.js';
 export default {
   name: 'PickQuiz',
   components: {
@@ -31,12 +31,12 @@ export default {
     };
   },
   methods: {
-    async getQuizIds() {
-      this.responseData = await getQuizIdsAsync();
+    async getSourceQuizIds() {
+      this.responseData = await getSourceQuizIdsAsync();
     },
   },
   async mounted() {
-    this.getQuizIds();
+    this.getSourceQuizIds();
   },
 };
 </script>

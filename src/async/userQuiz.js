@@ -1,7 +1,7 @@
 import axios from 'axios';
-const API_URL = 'http://localhost:5001/answer';
+const API_URL = 'http://localhost:5001/user-quiz';
 
-export const getNextQuestionAsync = async (quizId) => {
+export const getNextUserQuestionAsync = async (quizId) => {
   try {
     const response = await axios.get(`${API_URL}/next?id=${quizId}`);
     return response.data;
@@ -10,7 +10,7 @@ export const getNextQuestionAsync = async (quizId) => {
   }
 };
 
-export const getAllAnswersAsync = async () => {
+export const getUserQuizAsync = async () => {
   try {
     const response = await axios.get(`${API_URL}/all`);
     return response.data[0];
@@ -19,7 +19,11 @@ export const getAllAnswersAsync = async () => {
   }
 };
 
-export const submitInitialAnswerAsync = async ({ genre, quizId, answer }) => {
+export const submitInitialUserAnswerAsync = async ({
+  genre,
+  quizId,
+  answer,
+}) => {
   try {
     const response = await axios.post(`${API_URL}/init`, {
       genre,
@@ -32,7 +36,7 @@ export const submitInitialAnswerAsync = async ({ genre, quizId, answer }) => {
   }
 };
 
-export const submitNextAnswerAsync = async ({ quizId, answer }) => {
+export const submitNextUserAnswerAsync = async ({ quizId, answer }) => {
   try {
     const response = await axios.put(`${API_URL}/submit`, {
       quizId,

@@ -1,4 +1,4 @@
-export const QuizzesDb = [
+export const SourceQuizzesDb = [
   {
     id: '2FuLkPtNgPWYnC8xWWCXsq',
     genre: 'Movies',

@@ -1,8 +1,7 @@
 import axios from 'axios';
+const API_URL = 'http://localhost:5001/source-quiz';
 
-const API_URL = 'http://localhost:5001/quiz';
-
-export const getQuizIdsAsync = async () => {
+export const getSourceQuizIdsAsync = async () => {
   try {
     const response = await axios.get(`${API_URL}/pick`);
     return response.data;
@@ -11,7 +10,7 @@ export const getQuizIdsAsync = async () => {
   }
 };
 
-export const startQuizAsync = async (quizId) => {
+export const startSourceQuizAsync = async (quizId) => {
   try {
     const response = await axios.get(`${API_URL}/start?id=${quizId}`);
     return response.data;
@@ -20,7 +19,7 @@ export const startQuizAsync = async (quizId) => {
   }
 };
 
-export const getQuizQuestions = async (quizId) => {
+export const getSourceQuizQuestionsAsync = async (quizId) => {
   try {
     return await axios.get(`${API_URL}/questions?quizId=${quizId}`);
   } catch (error) {

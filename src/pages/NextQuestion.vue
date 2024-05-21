@@ -8,7 +8,7 @@
       <QuizQuestion
         :question="responseData.question"
         :choices="responseData.choices"
-        :selectionHandler="submitAnswer"
+        :selectionHandler="submitNextUserAnswer"
       />
     </div>
     <div v-else>
@@ -21,7 +21,10 @@
 import AppSpinner from '../components/AppSpinner.vue';
 import QuizQuestion from '../components/QuizQuestion/QuizQuestion.vue';
 import QuizResults from '../components/QuizResults/QuizResults.vue';
-import { getNextQuestionAsync, submitNextAnswerAsync } from '../async/index.js';
+import {
+  getNextUserQuestionAsync,
+  submitNextUserAnswerAsync,
+} from '../async/index.js';
 
 export default {
   name: 'NextQuestion',
@@ -37,18 +40,18 @@ export default {
     };
   },
   methods: {
-    async getNextQuestion() {
+    async getNextUserQuestion() {
       const quizId = this.$route.params.id;
-      const result = await getNextQuestionAsync(quizId);
+      const result = await getNextUserQuestionAsync(quizId);
       if (result.isComplete) {
         this.showResults = true;
       } else {
         this.responseData = result;
       }
     },
-    async submitAnswer(answer) {
+    async submitNextUserAnswer(answer) {
       const quizId = this.$route.params.id;
-      const info = await submitNextAnswerAsync({
+      const info = await submitNextUserAnswerAsync({
         quizId,
         answer,
       });
@@ -56,12 +59,12 @@ export default {
       if (info.isComplete) {
         this.showResults = true;
       } else {
-        this.getNextQuestion();
+        this.getNextUserQuestion();
       }
     },
   },
   async mounted() {
-    this.getNextQuestion();
+    this.getNextUserQuestion();
   },
 };
 </script>
