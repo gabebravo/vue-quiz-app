@@ -1,5 +1,8 @@
 <template>
-  <div class="hello">
+  <div v-if="this.showResults">
+    <QuizResults />
+  </div>
+  <div v-else class="hello">
     <h2>Here is your next question</h2>
     <div class="outter-container" v-if="responseData?.question">
       <QuizQuestion
@@ -17,6 +20,7 @@
 <script>
 import AppSpinner from '../components/AppSpinner.vue';
 import QuizQuestion from '../components/QuizQuestion/QuizQuestion.vue';
+import QuizResults from '../components/QuizResults/QuizResults.vue';
 import { getNextQuestionAsync, submitNextAnswerAsync } from '../async/index.js';
 
 export default {
@@ -24,29 +28,35 @@ export default {
   components: {
     AppSpinner,
     QuizQuestion,
+    QuizResults,
   },
   data() {
     return {
       responseData: {},
+      showResults: false,
     };
   },
   methods: {
     async getNextQuestion() {
       const quizId = this.$route.params.id;
-      this.responseData = await getNextQuestionAsync(quizId);
+      const result = await getNextQuestionAsync(quizId);
+      console.log('gb - result:', result);
+      if (result.isComplete) {
+        this.showResults = true;
+      } else {
+        this.responseData = result;
+      }
     },
     async submitAnswer(answer) {
       const quizId = this.$route.params.id;
-      const data = await submitNextAnswerAsync({
+      const info = await submitNextAnswerAsync({
         quizId,
         answer,
       });
-      this.responseData = data;
-      if (data.isComplete) {
-        this.$router.push({
-          name: 'QuizResults',
-          params: { id: quizId },
-        });
+      console.log('gb - info:', info);
+      this.responseData = info;
+      if (info.isComplete) {
+        this.showResults = true;
       } else {
         this.getNextQuestion();
       }

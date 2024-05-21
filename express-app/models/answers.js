@@ -1,4 +1,5 @@
 import { allQuizzes, emptyQuiz } from '../db/answers.js';
+import { Quizzes } from '../models/quizzes.js';
 import short from 'short-uuid';
 
 export class Answer {
@@ -8,12 +9,14 @@ export class Answer {
   // initialize the user's answers with the first answer
   initAnswers(genre, quizId, answer) {
     const uuid = short.generate();
+    const quiz = Quizzes.getQuizById(quizId);
     const newQuiz = {
       ...emptyQuiz,
       uuid,
       genre,
       quizId,
       answers: [answer],
+      quizLength: quiz.questions.length,
     };
 
     const allQuizzesWithNewQuiz = [newQuiz];

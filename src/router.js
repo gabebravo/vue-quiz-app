@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router';
 import PickQuiz from './pages/PickQuiz.vue';
 import StartQuiz from './pages/StartQuiz.vue';
 import NextQuestion from './pages/NextQuestion.vue';
-import QuizResults from './pages/QuizResults.vue';
 import NotFound from './pages/NotFound.vue';
 
 const routes = [
@@ -18,15 +17,9 @@ const routes = [
     props: true,
   },
   {
-    path: '/continue/:id',
+    path: '/:id',
     name: 'NextQuestion',
     component: NextQuestion,
-    props: true,
-  },
-  {
-    path: '/results/:id',
-    name: 'QuizResults',
-    component: QuizResults,
     props: true,
   },
   {

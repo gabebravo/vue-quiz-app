@@ -27,9 +27,9 @@
 </template>
 
 <script>
-import AppSpinner from '../components/AppSpinner.vue';
-import ResultsQuestions from '../components/QuizResults/ResultsQuestions.vue';
-import { getAllAnswersAsync, getQuizQuestions } from '../async/index.js';
+import AppSpinner from '../AppSpinner.vue';
+import ResultsQuestions from './ResultsQuestions.vue';
+import { getAllAnswersAsync, getQuizQuestions } from '../../async/index.js';
 
 export default {
   name: 'QuizResults',
